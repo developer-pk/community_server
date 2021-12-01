@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../../controllers/user/profileSteps.controller');
-const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
+const { authorize, ADMIN, LOGGED_USER } = require('../../../middlewares/auth');
 // const {
 //   listUsers,
 //   createUser,
@@ -12,9 +12,9 @@ const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
 const router = express.Router();
 
 router
-  .route('/step2')
+  .route('/step-2')
   /**
-   * @api {get} v1/users/profile User Profile
+   * @api {post} v1/profile/step-2 User Profile
    * @apiDescription Get logged in user profile information
    * @apiVersion 1.0.0
    * @apiName UserProfile
@@ -31,4 +31,6 @@ router
    *
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
    */
-  .get(authorize(), controller.step2);
+  .get(authorize(LOGGED_USER), controller.step2);
+
+  module.exports = router;

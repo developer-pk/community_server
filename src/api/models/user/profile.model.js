@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const httpStatus = require('http-status');
 const { omitBy, isNil } = require('lodash');
 const moment = require('moment-timezone');
-const APIError = require('../errors/api-error');
+const APIError = require('../../errors/api-error');
 
 /**
  * Refresh Token Schema
