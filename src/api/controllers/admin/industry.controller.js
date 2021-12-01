@@ -3,7 +3,7 @@ const { omit } = require('lodash');
 const Industry = require('../../models/admin/industry.model');
 
 /**
- * Create new Industry new 
+ * Create new Industry new mybranch
  * @public
  */
  exports.create = async (req, res, next) => {
