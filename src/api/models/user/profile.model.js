@@ -34,15 +34,15 @@ const APIError = require('../../errors/api-error');
         ref: 'Jobtitle',
         required: true,
       },
-      country: {
+      countryId: {
         type: Number,
         ref: 'Country'
       },
-      state:{
+      stateId:{
           type: Number,
           ref: 'State'
         },
-      city: {
+      cityId: {
         type: Number,
         ref: 'Country'
       },

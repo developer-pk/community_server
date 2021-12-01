@@ -31,6 +31,6 @@ router
    *
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
    */
-  .get(authorize(LOGGED_USER), controller.step2);
+  .post(authorize(LOGGED_USER), controller.step2);
 
   module.exports = router;
