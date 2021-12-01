@@ -4,6 +4,7 @@ const authRoutes = require('./auth.route');
 const industryRoutes = require('./admin/industry.route');
 const jobTitleRoutes = require('./admin/jobTitle.route');
 const countryRoutes = require('./common/country.route');
+const hobbyRoutes = require('./admin/hobby.route');
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.use('/auth', authRoutes);
 router.use('/industry', industryRoutes);
 router.use('/jobtitle', jobTitleRoutes);
 router.use('/country', countryRoutes);
+router.use('/hobby', hobbyRoutes);
 
 
 module.exports = router;
