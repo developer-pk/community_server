@@ -6,6 +6,7 @@ const jobTitleRoutes = require('./admin/jobTitle.route');
 const countryRoutes = require('./common/country.route');
 const hobbyRoutes = require('./admin/hobby.route');
 const profileRoutes = require('./user/profileSteps.route');
+const serviceNeedRoutes = require('./admin/serviceNeed.route');
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router.use('/jobtitle', jobTitleRoutes);
 router.use('/country', countryRoutes);
 router.use('/hobby', hobbyRoutes);
 router.use('/profile', profileRoutes);
+router.use('/serviceNeed', serviceNeedRoutes);
 
 
 module.exports = router;
