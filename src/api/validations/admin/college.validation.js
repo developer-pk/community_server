@@ -1,10 +1,10 @@
 const Joi = require('joi');
-const User = require('../../models/admin/serviceOffering.model');
+const User = require('../../models/admin/college.model');
 
 module.exports = {
 
   // GET /v1/users
-  listServiceOffering: {
+  listCollege: {
     query: {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   // POST /v1/users
-  createserviceOffering: {
+  createcollege: {
     body: {
       name: Joi.string().required(),
       status: Joi.string().required(),

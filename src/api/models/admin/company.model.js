@@ -6,7 +6,7 @@ const APIError = require('../../errors/api-error');
 
 const statuses = ['active', 'inactive'];
 
- const serviceOfferingSchema = new mongoose.Schema({
+ const companySchema = new mongoose.Schema({
     name: String,
     slug: {
       type: String,
@@ -28,11 +28,11 @@ const statuses = ['active', 'inactive'];
   });
   
   /**
-   * @typedef serviceOfferingSchema
+   * @typedef companySchema
    */
   
    
-   serviceOfferingSchema.pre('save', async function save(next) {
+   companySchema.pre('save', async function save(next) {
     try {
       this.slug = slugify(this.name);
       return next();
@@ -43,7 +43,7 @@ const statuses = ['active', 'inactive'];
 /**
  * Methods
  */
- serviceOfferingSchema.method({
+ companySchema.method({
   transform() {
     const transformed = {};
     const fields = ['id', 'name', 'status','createdAt'];
@@ -59,7 +59,7 @@ const statuses = ['active', 'inactive'];
 /**
  * Statics
  */
- serviceOfferingSchema.statics = {
+ companySchema.statics = {
    /**
    * Return new validation error
    * if error is a mongoose duplicate key error
@@ -74,7 +74,7 @@ const statuses = ['active', 'inactive'];
         errors: [{
           field: 'name',
           location: 'body',
-          messages: ['"ServiceOffering" already exists'],
+          messages: ['"Company" already exists'],
         }],
         status: httpStatus.CONFLICT,
         isPublic: true,
@@ -112,7 +112,7 @@ console.log(options);
       .replace(/-+$/, '');            // Trim - from end of text
   }
 
-  const serviceOffering = mongoose.model('ServiceOffering', serviceOfferingSchema);
+  const company = mongoose.model('Company', companySchema);
   
-  module.exports = serviceOffering;
+  module.exports = company;
   

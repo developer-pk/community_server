@@ -1,10 +1,10 @@
 const Joi = require('joi');
-const User = require('../../models/admin/serviceOffering.model');
+const User = require('../../models/admin/company.model');
 
 module.exports = {
 
   // GET /v1/users
-  listServiceOffering: {
+  listCompany: {
     query: {
       page: Joi.number().min(1),
       perPage: Joi.number().min(1).max(100),
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   // POST /v1/users
-  createserviceOffering: {
+  createcompany: {
     body: {
       name: Joi.string().required(),
       status: Joi.string().required(),

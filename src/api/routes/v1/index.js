@@ -7,6 +7,9 @@ const countryRoutes = require('./common/country.route');
 const hobbyRoutes = require('./admin/hobby.route');
 const profileRoutes = require('./user/profileSteps.route');
 const serviceNeedRoutes = require('./admin/serviceNeed.route');
+const serviceOfferingRoutes = require('./admin/serviceOffering.route');
+const companyRoutes = require('./admin/company.route');
+const collegeRoutes = require('./admin/college.route');
 
 const router = express.Router();
 
@@ -28,6 +31,9 @@ router.use('/country', countryRoutes);
 router.use('/hobby', hobbyRoutes);
 router.use('/profile', profileRoutes);
 router.use('/serviceNeed', serviceNeedRoutes);
+router.use('/serviceOffering', serviceOfferingRoutes);
+router.use('/company', companyRoutes);
+router.use('/college', collegeRoutes);
 
 
 module.exports = router;

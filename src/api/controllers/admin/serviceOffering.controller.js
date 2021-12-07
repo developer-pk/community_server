@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const { omit } = require('lodash');
-const ServiceOffering = require('../../models/admin/serviceNeed.model');
+const ServiceOffering = require('../../models/admin/serviceOffering.model');
 
 /**
  * Create new ServiceOffering
@@ -26,7 +26,7 @@ exports.list = async (req, res, next) => {
   try {
     const serviceOffering = await ServiceOffering.list(req.query);
     const transformedserviceOffering = serviceOffering.map((serviceOffering) => serviceOffering.transform());
-    res.json(transformedserviceNeed);
+    res.json(transformedserviceOffering);
   } catch (error) {
     next(error);
   } 
