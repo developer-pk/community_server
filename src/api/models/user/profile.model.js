@@ -34,6 +34,21 @@ const APIError = require('../../errors/api-error');
         ref: 'Jobtitle',
         required: true,
       },
+      businessOwner:{
+        type:String,
+        trim:true,
+        default: null
+      },
+      linkedIn:{
+        type:String,
+        default:null
+
+      },
+      companyId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true,
+      },
       countryId: {
         type: Number,
         ref: 'Country'
@@ -49,6 +64,72 @@ const APIError = require('../../errors/api-error');
     postalCode: {
         type: Number,
         ref: 'Country'
+      },
+      hobbiesId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Hobby',
+        required: true,
+      },
+      serviceNeedId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'ServiceNeed',
+        required: true,
+      },
+      serviceOfferingId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'ServiceOffering',
+        required: true,
+      },
+      collegeId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'College',
+        required: true,
+      },
+      hiring:{
+        type:String,
+        default:null,
+        required: true,
+      },
+      newCareer:{
+        type:String,
+        default:null,
+        required: true,
+      },
+      companySize:{
+        type:String,
+        default:null,
+      },
+      companyRevenue:{
+        type:String,
+        default:null,
+      },
+      meetJobTitleId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'JobTitle',
+        required: true,
+      },
+      meetIndustryId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Industry',
+        required: true,
+      },
+      meetCompanyId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true,
+      },
+      meetCompanySize:{
+        type:String,
+        default:null,
+      },
+      meetCompanyRevenue:{
+        type:String,
+        default:null,
+      },
+      meetLocationId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'City',
+        required: true,
       }
         
   }, {
