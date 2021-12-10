@@ -10,6 +10,7 @@ const serviceNeedRoutes = require('./admin/serviceNeed.route');
 const serviceOfferingRoutes = require('./admin/serviceOffering.route');
 const companyRoutes = require('./admin/company.route');
 const collegeRoutes = require('./admin/college.route');
+const groupRoutes = require('./groupCommunity/groupCommunity.route');
 
 const router = express.Router();
 
@@ -34,6 +35,7 @@ router.use('/serviceNeed', serviceNeedRoutes);
 router.use('/serviceOffering', serviceOfferingRoutes);
 router.use('/company', companyRoutes);
 router.use('/college', collegeRoutes);
+router.use('/group',groupRoutes);
 
 
 module.exports = router;

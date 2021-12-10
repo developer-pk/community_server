@@ -7,6 +7,8 @@ const Industry = require('../../models/admin/industry.model');
  * @public
  */
  exports.create = async (req, res, next) => {
+   
+  
     try {
       const industry = new Industry(Object.assign({ createdBy: req.user._id },req.body));
       const savedIndustry = await industry.save();
