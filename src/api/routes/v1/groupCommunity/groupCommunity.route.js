@@ -31,6 +31,25 @@ router
   .post(authorize(LOGGED_USER), controller.create);
   
 
+  router
+  .route('/members')
+  /**
+   * @api {get} v1/group/members
+   * @apiDescription Get logged in user information
+   * @apiVersion 1.0.0
+   * @apiName groupMembers
+   * @apiGroup Group
+   * @apiPermission user
+   *
+   * @apiHeader {String} Authorization   User's access token
+   *
+   * @apiSuccess {String}  id         groupMember's id
+   * @apiSuccess {String}  groupId       Group's id
+   * @apiSuccess {Date}    createdAt  Timestamp
+   *
+   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
+   */
+  .get(controller.list);
   
 router
 .route('/community-add')

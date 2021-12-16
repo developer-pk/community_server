@@ -95,12 +95,33 @@ userSchema.pre('save', async function save(next) {
 });
 
 /**
+ * Add your
+ * - virtuals
+ */
+ userSchema.virtual('groupCommunity', {
+  ref: 'GroupCommunity',
+  localField: '_id',
+  foreignField: 'createdBy', 
+})
+userSchema.virtual('userProfile', {
+ ref: 'UserProfile',
+ localField: '_id',
+ foreignField: 'userId', 
+})
+
+userSchema.set('toJSON', { virtuals: true });
+userSchema.set('toObject', { virtuals: true });  
+
+
+
+
+/**
  * Methods
  */
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'firstname', 'lastname', 'email', 'picture', 'role', 'createdAt','steps'];
+    const fields = ['id', 'firstname', 'lastname', 'email', 'picture', 'role', 'createdAt','steps','groupCommunity','userProfile'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];

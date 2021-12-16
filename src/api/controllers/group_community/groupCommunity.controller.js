@@ -2,9 +2,10 @@ const httpStatus = require('http-status');
 const { omit } = require('lodash');
 const User = require('../../models/user.model');
 const GroupCommunity = require('../../models/groupCommunity/groupCommunity.model');
+const GroupMember = require('../../models/groupCommunity/groupMembers.model');
 
 /**
- * Create new groupMember
+ * Create new groupCommunity
  * @public 
  */
  exports.create = async (req, res, next) => {
@@ -26,8 +27,13 @@ const GroupCommunity = require('../../models/groupCommunity/groupCommunity.model
  */
 exports.list = async (req, res, next) => {
   try {
-    const groupCommunity = await GroupCommunity.list(req.query);
-    const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
+    const groupCommunity = await GroupCommunity.find().populate({
+         path    : 'groupMember',
+         populate: [
+             { path: 'userId' },
+         ]
+    });
+   const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
     res.json(transformedgroupCommunity);
   } catch (error) {
     next(error);

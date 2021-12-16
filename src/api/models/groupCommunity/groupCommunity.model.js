@@ -3,6 +3,7 @@ const httpStatus = require('http-status');
 const { omitBy, isNil } = require('lodash');
 const moment = require('moment-timezone');
 const APIError = require('../../errors/api-error');
+const GroupMember = require('./groupMembers.model');
 
 const statuses = ['active', 'inactive'];
 
@@ -36,7 +37,12 @@ const statuses = ['active', 'inactive'];
           type: String,
           enum: statuses,
           default: 'active',
-        }
+      },
+      memberCount: {
+          type: Number,
+          default: 0,
+      }
+      
     
   }, {
     timestamps: true,
@@ -55,13 +61,30 @@ const statuses = ['active', 'inactive'];
       return next(error);
     }
   });
+
+  
+/**
+ * Add your
+ * - virtuals
+ */
+  groupCommunitySchema.virtual('groupMember', {
+    ref: 'GroupMember',
+    localField: '_id',
+    foreignField: 'groupId', 
+})
+
+groupCommunitySchema.set('toJSON', { virtuals: true });
+groupCommunitySchema.set('toObject', { virtuals: true });  
+
+
+
 /**
  * Methods
  */
  groupCommunitySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name',,'description','type','typeId','createdBy','createdType','status',];
+    const fields = ['id', 'name',,'description','type','typeId','createdBy','createdType','status','groupMember'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -70,6 +93,7 @@ const statuses = ['active', 'inactive'];
     return transformed;
   },
 });
+
 
 /**
  * Statics
