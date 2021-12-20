@@ -1,6 +1,8 @@
 const httpStatus = require('http-status');
 const { omit } = require('lodash');
 const User = require('../models/user.model');
+const Profile = require('../models/user/profile.model');
+const Industry = require('../models/admin/industry.model');
 
 /**
  * Load user and append to req.
@@ -83,9 +85,28 @@ exports.update = (req, res, next) => {
  */
 exports.list = async (req, res, next) => {
   try {
+    
     const users = await User.find().populate([
       { path    : 'groupCommunity' },
-      { path: 'userProfile' }
+      { 
+        path: 'userProfile',
+        populate: [
+          { path: 'industryId' },
+          { path:'jobtitleId' },
+          { path:'companyId' },
+          { path:'countryId' },
+          { path:'stateId' },
+          { path:'cityId' },
+          { path:'hobbiesId' },
+          { path:'serviceNeedId' },
+          { path:'serviceOfferingId' },
+          { path:'collegeId' },
+          //{ path:'meetJobTitleId' },
+          //{ path:'meetIndustryId' },
+          //{ path:'meetCompanyId' },
+         // { path:'meetLocationId' },
+        ]
+     }
     ]);
     const transformedUsers = users.map((user) => user.transform());
     res.json(transformedUsers);
@@ -105,3 +126,6 @@ exports.remove = (req, res, next) => {
     .then(() => res.status(httpStatus.NO_CONTENT).end())
     .catch((e) => next(e));
 };
+
+
+

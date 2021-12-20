@@ -108,6 +108,12 @@ userSchema.virtual('userProfile', {
  localField: '_id',
  foreignField: 'userId', 
 })
+userSchema.virtual('userProfile', {
+ ref: 'UserProfile',
+ localField: '_id',
+ foreignField: 'userId', 
+})
+
 
 userSchema.set('toJSON', { virtuals: true });
 userSchema.set('toObject', { virtuals: true });  
@@ -177,7 +183,7 @@ userSchema.statics = {
    * Find user by email and tries to generate a JWT token
    *
    * @param {ObjectId} id - The objectId of user.
-   * @returns {Promise<User, APIError>}
+   * @returns {Promise<User, APIrror>}
    */
   async findAndGenerateToken(options) {
     const { email, password, refreshObject } = options;

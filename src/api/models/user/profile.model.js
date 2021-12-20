@@ -3,6 +3,7 @@ const httpStatus = require('http-status');
 const { omitBy, isNil } = require('lodash');
 const moment = require('moment-timezone');
 const APIError = require('../../errors/api-error');
+const Industry = require('../admin/industry.model');
 
 /**
  * Refresh Token Schema
@@ -135,6 +136,17 @@ const APIError = require('../../errors/api-error');
   }, {
     timestamps: true,
   });
+
+
+/**
+ * Add your
+ * - virtuals
+ */
+
+
+
+   
+ 
   
 //   userProfileSchema.statics = {
   
