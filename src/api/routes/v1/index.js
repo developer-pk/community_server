@@ -11,7 +11,7 @@ const serviceOfferingRoutes = require('./admin/serviceOffering.route');
 const companyRoutes = require('./admin/company.route');
 const collegeRoutes = require('./admin/college.route');
 const groupRoutes = require('./groupCommunity/groupCommunity.route');
-const groupDicussionRoutes = require('./groupCommunity/groupDiscussion.route');
+//const groupDicussionRoutes = require('./groupCommunity/groupDiscussion.route');
 
 const router = express.Router();
  
@@ -37,7 +37,7 @@ router.use('/serviceOffering', serviceOfferingRoutes);
 router.use('/company', companyRoutes);
 router.use('/college', collegeRoutes);
 router.use('/group',groupRoutes);
-router.use('/',groupDicussionRoutes);
+//router.use('/',groupDicussionRoutes);
 
 
 module.exports = router;
