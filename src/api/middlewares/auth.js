@@ -23,14 +23,21 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
   }
 
   if (roles === LOGGED_USER) {
-    if (user.role !== 'admin' && req.params.userId !== user._id.toString()) {
+
+    if (user.role !== 'user' && req.params.userId !== user._id.toString()) {
       apiError.status = httpStatus.FORBIDDEN;
-      apiError.message = 'Forbidden';
+      apiError.message = 'Forbidden User Will Access This Route';
       return next(apiError);
     }
-  } else if (!roles.includes(user.role)) {
+  } else if (roles === ADMIN) {
+    if (user.role !== 'admin' && req.params.userId !== user._id.toString()) {
+      apiError.status = httpStatus.FORBIDDEN;
+      apiError.message = 'Forbidden Admin Will Access This Route';
+      return next(apiError);
+    }
+  }  else if (!roles.includes(user.role)) {
     apiError.status = httpStatus.FORBIDDEN;
-    apiError.message = 'Forbidden';
+    apiError.message = 'Forbidden User not have any role';
     return next(apiError);
   } else if (err || !user) {
     return next(apiError);

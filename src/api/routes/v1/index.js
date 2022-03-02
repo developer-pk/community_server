@@ -31,7 +31,7 @@ router.use('/industry', industryRoutes);
 router.use('/jobtitle', jobTitleRoutes);
 router.use('/country', countryRoutes);
 router.use('/hobby', hobbyRoutes);
-router.use('/profile', profileRoutes); 
+router.use('/profile', profileRoutes);
 router.use('/serviceNeed', serviceNeedRoutes);
 router.use('/serviceOffering', serviceOfferingRoutes);
 router.use('/company', companyRoutes);
