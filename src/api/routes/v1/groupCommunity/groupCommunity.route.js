@@ -1,5 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
+const uuidv4 = require('uuid/v4');
 const controller = require('../../../controllers/group_community/groupMember.controller');
 const groupCommunityController = require('../../../controllers/group_community/groupCommunity.controller');
 const { authorize, ADMIN, LOGGED_USER } = require('../../../middlewares/auth');
@@ -7,6 +8,23 @@ const { authorize, ADMIN, LOGGED_USER } = require('../../../middlewares/auth');
   listGroupCommunity,
   createGroupCommunity,
  } = require('../../../validations/groupcommunity/groupcommunity.validation');
+ var path = require('path')
+ const multer  = require('multer');
+ 
+ const storage = multer.diskStorage({
+   destination: function(req, file, cb) {
+       cb(null, 'uploads/groupImages/');
+   },
+ 
+   filename: function(req, file, cb) {
+ 
+    //  console.log("hjgjhgj  ",req.body);
+       cb(null, uuidv4()+path.extname(file.originalname));
+   }
+ });
+ 
+ var upload = multer({ storage: storage });
+
 
 const router = express.Router();
 

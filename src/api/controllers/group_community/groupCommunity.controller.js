@@ -12,7 +12,7 @@ const GroupMember = require('../../models/groupCommunity/groupMembers.model');
   console.log(req.body);
    console.log(req);   
   try {
-    const groupCommunity = new GroupCommunity(Object.assign({ createdBy: req.user._id },req.body));
+    const groupCommunity = new GroupCommunity(Object.assign({ createdBy: req.user._id,image:req.file.filename },req.body));
     const savedgroupCommunity = await groupCommunity.save();
     res.status(httpStatus.CREATED);
     res.json(savedgroupCommunity);

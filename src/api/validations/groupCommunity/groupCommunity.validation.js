@@ -10,6 +10,7 @@ module.exports = {
       perPage: Joi.number().min(1).max(100),
       name: Joi.string(),
       status: Joi.string(),
+      slug: Joi.string(),
     },
   },
 

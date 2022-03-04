@@ -13,6 +13,10 @@ const statuses = ['active', 'inactive'];
       type: String,
       unique: true
     },
+    image:{
+      type: String,
+      required: true,
+    },
     description: {
           type: String,
           default: null,
@@ -84,7 +88,7 @@ groupCommunitySchema.set('toObject', { virtuals: true });
  groupCommunitySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name',,'description','type','typeId','createdBy','createdType','status','groupMember'];
+    const fields = ['id', 'name','slug','image','description','type','typeId','createdBy','createdType','status','groupMember'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -130,9 +134,9 @@ groupCommunitySchema.set('toObject', { virtuals: true });
    * @returns {Promise<User[]>}
    */
    list({
-    page = 1, perPage = 30, name, slug, status,
+    page = 1, perPage = 30, name, slug,image, status,
   }) {
-    const options = omitBy({ name, slug, status }, isNil);
+    const options = omitBy({ name, slug,image, status }, isNil);
 
     return this.find(options)
       .sort({ createdAt: -1 })
