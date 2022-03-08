@@ -100,7 +100,7 @@ router
  *
  * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
  */
-.post(authorize(ADMIN),validate(createGroupCommunity), groupCommunityController.create);
+.post(authorize(ADMIN),upload.single('image'),validate(createGroupCommunity), groupCommunityController.create);
 
 
 router
