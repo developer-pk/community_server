@@ -126,5 +126,48 @@ router
    * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
    * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
    */
-  .get(validate(listGroupCommunity), groupCommunityController.list)
+  .get(validate(listGroupCommunity), groupCommunityController.list);
+
+  
+
+  router
+  .route('/:groupId')
+  /**
+   * @api {post} v1/group/member-add  
+   * @apiDescription Get logged in user information
+   * @apiVersion 1.0.0
+   * @apiName groupMember
+   * @apiGroup Group
+   * @apiPermission user
+   *
+   * @apiHeader {String} Authorization   User's access token
+   *
+   * @apiSuccess {String}  id         User's id
+   * @apiSuccess {String}  groupId       Group's id
+   * @apiSuccess {Date}    createdAt  Timestamp
+   *
+   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
+   */
+  .get(authorize(), groupCommunityController.getSingleCommunity);
+
+  router
+  .route('/community/delete/:groupCommunityId')
+  /**
+   * @api {patch} v1/group/community/delete/:groupCommunityId Delete User
+   * @apiDescription Delete a createcollege
+   * @apiVersion 1.0.0
+   * @apiName Deletecreatecollege
+   * @apiGroup createcollege
+   * @apiPermission admin
+   *
+   * @apiHeader {String} Authorization   Admin's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully deleted
+   *
+   * @apiError (Unauthorized 401) Unauthorized  Only authenticated users can delete the data
+   * @apiError (Forbidden 403)    Forbidden     Only user with same id or admins can delete the data
+   * @apiError (Not Found 404)    NotFound      User does not exist
+   */
+   .delete(authorize(ADMIN), groupCommunityController.remove);
+
   module.exports = router;

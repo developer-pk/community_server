@@ -52,3 +52,18 @@ exports.list = async (req, res, next) => {
     next(error);
   } 
 };
+
+exports.getSingleCommunity = async (req, res, next) => {
+  try {
+    const groupCommunity = await GroupCommunity.find(req.body.groupId).populate({
+         path    : 'groupMember',
+         populate: [
+             { path: 'userId' },
+         ]
+    });
+   const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
+    res.json(transformedgroupCommunity);
+  } catch (error) {
+    next(error);
+  } 
+};
