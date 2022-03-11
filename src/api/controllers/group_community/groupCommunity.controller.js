@@ -61,7 +61,7 @@ exports.getSingleCommunity = async (req, res, next) => {
              { path: 'userId' },
          ]
     });
-   const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
+   const transformedgroupCommunity = groupCommunity.transform();
     res.json(transformedgroupCommunity);
   } catch (error) {
     next(error);
