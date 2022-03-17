@@ -170,4 +170,25 @@ router
    */
    .delete(authorize(ADMIN), groupCommunityController.remove);
 
+   
+router
+.route('/add-discussion')
+/**
+ * @api {post} v1/group/member-add  
+ * @apiDescription Get logged in user information
+ * @apiVersion 1.0.0
+ * @apiName groupMember
+ * @apiGroup Group
+ * @apiPermission user
+ *
+ * @apiHeader {String} Authorization   User's access token
+ *
+ * @apiSuccess {String}  id         User's id
+ * @apiSuccess {String}  groupId       Group's id
+ * @apiSuccess {Date}    createdAt  Timestamp
+ *
+ * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
+ */
+.post(authorize(LOGGED_USER), groupCommunityController.createDiscussion);
+
   module.exports = router;

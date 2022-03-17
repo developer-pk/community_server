@@ -3,6 +3,7 @@ const { omit } = require('lodash');
 const User = require('../../models/user.model');
 const GroupCommunity = require('../../models/groupCommunity/groupCommunity.model');
 const GroupMember = require('../../models/groupCommunity/groupMembers.model');
+const GroupDiscussion = require('../../models/groupCommunity/groupDiscussion.model');
 
 /**
  * Create new groupCommunity
@@ -66,4 +67,16 @@ exports.getSingleCommunity = async (req, res, next) => {
   } catch (error) {
     next(error);
   } 
+};
+
+exports.createDiscussion = async (req, res, next) => {
+  try {
+    const groupDiscussion = new GroupDiscussion(Object.assign({ userId: req.user._id },req.body));
+    const savedgroupDiscussion = await groupDiscussion.save();
+    res.status(httpStatus.CREATED);
+    res.json(savedgroupDiscussion);
+  } catch (error) {
+    next(error);
+  }
+  
 };

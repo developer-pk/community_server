@@ -3,8 +3,7 @@ const { omit } = require('lodash');
 const User = require('../../models/user.model');
 const GroupMember = require('../../models/groupCommunity/groupMembers.model');
 const GroupCommunity = require('../../models/groupCommunity/groupCommunity.model');
-
-
+const { ObjectId } = require('mongodb');
 
 /**
  * Create new groupMember
@@ -41,8 +40,10 @@ const GroupCommunity = require('../../models/groupCommunity/groupCommunity.model
  * @public
  */
 exports.list = async (req, res, next) => {
+  console.log("I am here");
+  // mongoose.Types.ObjectId('4ed3ede8844f0f351100000c')
   try {
-    const data = await GroupMember.find().populate([
+    const data = await GroupMember.find({groupId:ObjectId(req.params.groupId)}).populate([
       { path    : 'groupId' },
       { path: 'userId' }
     ]
