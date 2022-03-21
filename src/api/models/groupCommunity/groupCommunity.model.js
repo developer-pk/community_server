@@ -46,6 +46,8 @@ const statuses = ['active', 'inactive'];
           type: Number,
           default: 0,
       }
+      ,
+      // discussions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'GroupDiscussion' }],
       
     
   }, {
@@ -76,7 +78,17 @@ const statuses = ['active', 'inactive'];
     localField: '_id',
     foreignField: 'groupId', 
 })
-
+groupCommunitySchema.virtual('groupDiscussions', {
+  ref: 'GroupDiscussion',
+  localField: '_id',
+  foreignField: 'groupId',
+})
+groupCommunitySchema.virtual('discussionsCount', {
+  ref: 'GroupDiscussion',
+  localField: '_id',
+  foreignField: 'groupId',
+  count: true 
+})
 groupCommunitySchema.set('toJSON', { virtuals: true });
 groupCommunitySchema.set('toObject', { virtuals: true });  
 
@@ -88,7 +100,7 @@ groupCommunitySchema.set('toObject', { virtuals: true });
  groupCommunitySchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name','slug','image','description','type','typeId','createdBy','createdType','status','groupMember'];
+    const fields = ['id', 'name','slug','image','description','type','typeId','createdBy','createdType','status','groupMember','groupDiscussions','discussionsCount'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];

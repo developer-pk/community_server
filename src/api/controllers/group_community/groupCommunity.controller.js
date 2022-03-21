@@ -56,12 +56,23 @@ exports.list = async (req, res, next) => {
 
 exports.getSingleCommunity = async (req, res, next) => {
   try {
+
+    console.log("hiii000000i")
     const groupCommunity = await GroupCommunity.findOne(req.body.groupId).populate({
          path    : 'groupMember',
          populate: [
              { path: 'userId' },
          ]
-    });
+       
+    }).populate({ 
+      path: 'groupDiscussions',
+      options: {sort: {createdAt: -1} },
+      populate: [
+        { path: 'userId' },
+    ]
+ }).populate({ 
+    path: 'discussionsCount'
+  });
    const transformedgroupCommunity =  groupCommunity.transform();
     res.json(transformedgroupCommunity);
   } catch (error) {
@@ -72,11 +83,41 @@ exports.getSingleCommunity = async (req, res, next) => {
 exports.createDiscussion = async (req, res, next) => {
   try {
     const groupDiscussion = new GroupDiscussion(Object.assign({ userId: req.user._id },req.body));
-    const savedgroupDiscussion = await groupDiscussion.save();
-    res.status(httpStatus.CREATED);
-    res.json(savedgroupDiscussion);
+    const savedgroupDiscussion = await groupDiscussion.save().then((discussion) => {
+      GroupCommunity.findByIdAndUpdate(
+        req.body.groupId,
+        { $push: { discussions: discussion._id } },
+        { new: true, useFindAndModify: false },
+        (err, post) => {
+          if (err) {
+            return res.status(500).json({ success: false, msg: err.message });
+          }
+          res.status(httpStatus.CREATED).json({ success: true, discussion });
+        }
+      );
+    });
+    // res.status(httpStatus.CREATED);
+    // res.json(savedgroupDiscussion);
   } catch (error) {
     next(error);
   }
   
+};
+
+
+exports.getdiscussion = async (req, res, next) => {
+  console.log("hiiii")
+  try {
+    console.log(req.params.groupId)
+    const groupCommunity = await GroupDiscussion.find({groupId:req.params.groupId}).populate({
+         path    : 'groupMember',
+         populate: [
+             { path: 'userId' },
+         ]
+    });
+    const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
+    res.json(transformedgroupCommunity);
+  } catch (error) {
+    next(error);
+  } 
 };
