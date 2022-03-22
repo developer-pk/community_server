@@ -192,7 +192,7 @@ router
 .post(authorize(LOGGED_USER), groupCommunityController.createDiscussion);
 
 router
-.route('/discussion')
+.route('/get-discussion/')
 /**
  * @api {post} v1/group/member-add  
  * @apiDescription Get logged in user information
@@ -209,6 +209,6 @@ router
  *
  * @apiError (Unauthorized 401)  Unauthorized  Only authenticated Users can access the data
  */
-.get(authorize(), groupCommunityController.getdiscussion);
+.post(authorize(),groupCommunityController.getdiscussion);
 
   module.exports = router;

@@ -31,7 +31,7 @@ exports.list = async (req, res, next) => {
     const groupCommunity = await GroupCommunity.find().populate({
          path    : 'groupMember',
          populate: [
-             { path: 'userId' },
+             { path: 'userId',select:['role','status','email','firstname','lastname'] },
          ]
     });
    const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
@@ -61,14 +61,14 @@ exports.getSingleCommunity = async (req, res, next) => {
     const groupCommunity = await GroupCommunity.findOne(req.body.groupId).populate({
          path    : 'groupMember',
          populate: [
-             { path: 'userId' },
+             { path: 'userId',select:['role','status','email','firstname','lastname'] },
          ]
        
     }).populate({ 
       path: 'groupDiscussions',
       options: {sort: {createdAt: -1} },
       populate: [
-        { path: 'userId' },
+        { path: 'userId',select:['role','status','email','firstname','lastname'] },
     ]
  }).populate({ 
     path: 'discussionsCount'
@@ -108,14 +108,18 @@ exports.createDiscussion = async (req, res, next) => {
 exports.getdiscussion = async (req, res, next) => {
   console.log("hiiii")
   try {
-    console.log(req.params.groupId)
-    const groupCommunity = await GroupDiscussion.find({groupId:req.params.groupId}).populate({
-         path    : 'groupMember',
-         populate: [
-             { path: 'userId' },
-         ]
-    });
+    console.log(req.body.groupId)
+    console.log("hthw  ",req.body.skip);
+    const groupCommunity = await GroupDiscussion.find({groupId:req.body.groupId}).populate({
+         path    : 'userId',
+         select:['role','status','email','firstname','lastname']
+        
+    }).limit(Number(req.body.limit)).skip(Number(req.body.skip));
+   
     const transformedgroupCommunity = groupCommunity.map((groupCommunity) => groupCommunity.transform());
+    if(transformedgroupCommunity.length === 0){
+      res.json("No Discussion Found");
+    }
     res.json(transformedgroupCommunity);
   } catch (error) {
     next(error);

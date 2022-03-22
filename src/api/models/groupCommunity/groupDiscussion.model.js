@@ -30,8 +30,25 @@ const statuses = ['active', 'inactive'];
   }, {
     timestamps: true,
   });
-
-
+  groupDiscussionSchema.virtual('postedBy', {
+    ref: 'User',
+    localField: '_id',
+    foreignField: 'userId', 
+});
+groupDiscussionSchema.set('toJSON', { virtuals: true });
+groupDiscussionSchema.set('toObject', { virtuals: true });  
+  groupDiscussionSchema.method({
+    transform() {
+      const transformed = {};
+      const fields = ['id', 'userId','groupId','discussion','status','postedBy','groupDiscussions','discussionsCount'];
+  
+      fields.forEach((field) => {
+        transformed[field] = this[field];
+      });
+  
+      return transformed;
+    },
+  });
   /**
  * Statics
  */
